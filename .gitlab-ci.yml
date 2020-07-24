@@ -26,8 +26,22 @@ stages:
 #                    e.g. "cuda cuda:35 serial"
 .base_generator:
   stage: generate
-  script: 
+  script:
+    - $CI_PROJECT_DIR/share/ci/git_rebase.sh
     - $CI_PROJECT_DIR/share/ci/generate.sh > compile.yml
+    - cat compile.yml
+  artifacts:
+    paths:
+      - compile.yml
+
+.base_generator_pairwise:
+  stage: generate
+  script:
+    - apt update
+    - apt install -y python3-pip
+    - pip3 install allpairspy
+    - $CI_PROJECT_DIR/share/ci/git_rebase.sh
+    - $CI_PROJECT_DIR/share/ci/generate_pairwise.sh -n 1 > compile.yml
     - cat compile.yml
   artifacts:
     paths:
@@ -40,7 +54,20 @@ stages:
 test-rebase-to-mainline:
   stage: rebase
   script:
-    - $CI_PROJECT_DIR/share/ci/git_rebase.sh
+    - source $CI_PROJECT_DIR/share/ci/git_rebase.sh
+
+matrix-pair:
+  variables:
+    PIC_INPUTS: "examples"
+  extends: ".base_generator_pairwise"
+
+compile-matrix-pair:
+  stage: compile
+  trigger:
+    include:
+      - artifact: compile.yml
+        job: matrix-pair
+    strategy: depend
 
 # gcc matrix
 # test simples setup to cover compatibility issues with boost
@@ -88,6 +115,7 @@ status-check:
   dependencies:
     - compile-matrix-clang-simple
     - compile-matrix-gcc-simple
+    - compile-matrix-pair
 
 # nightly build
 matrix-gcc-simple-nightly:
