@@ -5,10 +5,7 @@
 
 export PATH=$CI_PROJECT_DIR/share/ci:$PATH
 export picongpu_DIR=$CI_PROJECT_DIR
-pwd
-ls $picongpu_DIR
 
-ls  $picongpu_DIR/share
 cd $picongpu_DIR/share/picongpu/
 
 echo "include:"
