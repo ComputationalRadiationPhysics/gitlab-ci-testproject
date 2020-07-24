@@ -1,8 +1,10 @@
 #!/bin/bash
 
+set -e
+set -o pipefail
+
 # generate a job matrix based on the environment variable lists (space separated)
 # variables: GITLAB_BASES CXX_VERSIONS BOOST_VERSIONS PIC_INPUTS PIC_ACCS
-
 
 export picongpu_DIR=$CI_PROJECT_DIR
 cd $picongpu_DIR/share/picongpu/

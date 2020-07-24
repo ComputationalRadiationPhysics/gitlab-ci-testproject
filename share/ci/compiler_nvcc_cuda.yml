@@ -8,6 +8,8 @@
     - nvidia-smi
     - nvcc --version
   script:
+    - apt update
+    - apt install -y curl
     - $CI_PROJECT_DIR/share/ci/git_rebase.sh
     - source share/ci/run_test.sh
   tags:

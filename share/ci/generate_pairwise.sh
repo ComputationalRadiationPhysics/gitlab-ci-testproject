@@ -1,5 +1,8 @@
 #!/bin/bash
 
+set -e
+set -o pipefail
+
 # generate a job matrix based on the environment variable lists (space separated)
 # variables: PIC_INPUTS
 
