@@ -1,0 +1,28 @@
+# tmp files
+*~
+
+# netbeans project files
+/nbproject/
+
+# Code::Blocks project files
+/*.cbp
+/*.layout
+
+# Visual Studio Code configuration files
+.vscode
+
+# JetBrains project files
+.idea/
+
+# python byte code
+*.pyc
+
+# original backup files
+*.orig
+
+# doxygen output
+docs/xml/
+docs/doxygen_sqlite3.db
+docs/html/
+# sphinx & breathe output
+docs/build/
