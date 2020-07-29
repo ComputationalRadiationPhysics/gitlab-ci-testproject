@@ -17,6 +17,10 @@ echo "  - local: '/share/ci/compiler_gcc.yml'"
 echo "  - local: '/share/ci/compiler_nvcc_cuda.yml'"
 echo "  - local: '/share/ci/compiler_clang_cuda.yml'"
 echo ""
+echo "stages:"
+echo "  - test"
+echo "  - wait"
+echo ""
 
 folders=()
 for CASE in ${PIC_INPUTS}; do
@@ -31,3 +35,9 @@ for CASE in ${PIC_INPUTS}; do
 done
 
 echo "${folders[@]}" | tr " " "\n" | pair_generator.py $@
+echo ""
+echo "finish_downstream_pipeline:"
+echo "  stage: wait"
+echo "  script:"
+echo "    - env"
+echo ""

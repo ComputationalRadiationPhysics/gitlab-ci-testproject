@@ -70,7 +70,7 @@ compile-matrix-pair:
     include:
       - artifact: compile.yml
         job: matrix-pair
-    strategy: depend
+#    strategy: depend
 
 matrix-pair-nightly:
   variables:
@@ -86,9 +86,15 @@ compile-matrix-pair-nightly:
     include:
       - artifact: compile.yml
         job: matrix-pair-nightly
-    strategy: depend
+#    strategy: depend
   extends:
     - .base_nightly
+
+status-check:
+  stage: status
+  script:
+    - echo "Wait for previous stages"
+
 
 # gcc matrix
 # test simples setup to cover compatibility issues with boost

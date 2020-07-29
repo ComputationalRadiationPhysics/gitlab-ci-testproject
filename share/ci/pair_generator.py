@@ -104,29 +104,33 @@ def is_valid_combination(row):
 
     return True
 
-clang_compiers = [("clang++",5.0), ("clang++",6.0), ("clang++",7), ("clang++",8), ("clang++",9), ("clang++",10)]
-gnu_compilers = [("g++",5), ("g++",6), ("g++",7), ("g++",8), ("g++",9)]
+clang_compiers = [("clang++",5.0)]
+#, ("clang++",6.0), ("clang++",7), ("clang++",8), ("clang++",9), ("clang++",10)]
+gnu_compilers = [("g++",5)]
+#, ("g++",6), ("g++",7), ("g++",8), ("g++",9)]
 compilers = [
-    clang_compiers,
-    gnu_compilers
+    gnu_compilers,
+    clang_compiers
 ]
 
 #generate clang cuda compiler
 cuda_clang_compilers = []
-for i in clang_compiers:
-    cuda_clang_compilers.append(i + ("clangCuda",))
-compilers.append(cuda_clang_compilers)
+#for i in clang_compiers:
+#    cuda_clang_compilers.append(i + ("clangCuda",))
+#compilers.append(cuda_clang_compilers)
 
 # nvcc compiler
 cuda_nvcc_compilers = []
 for i in clang_compiers:
     cuda_nvcc_compilers.append(i + ("nvcc",))
-for i in gnu_compilers:
-    cuda_nvcc_compilers.append(i + ("nvcc",))
+#for i in gnu_compilers:
+#    cuda_nvcc_compilers.append(i + ("nvcc",))
 compilers.append(cuda_nvcc_compilers)
 
-backends = [  ("cuda",9.2), ("cuda",10.0), ("cuda",10.1), ("cuda",10.2), ("omp2b",), ("single",)]
-boost_libs = [ "1.65.1", "1.66.0", "1.67.0", "1.68.0", "1.69.0", "1.70.0", "1.71.0", "1.72.0", "1.73.0"]
+backends = [  ("cuda",9.2) ]
+#, ("cuda",10.0), ("cuda",10.1), ("cuda",10.2), ("omp2b",), ("single",)]
+boost_libs = [ "1.65.1" ]
+#, "1.66.0", "1.67.0", "1.68.0", "1.69.0", "1.70.0", "1.71.0", "1.72.0", "1.73.0"]
 
 rounds = 1
 if n_pairs == 1:
@@ -157,6 +161,7 @@ for i in range(rounds):
             folder=pairs[3]
             job_name=compiler+"_"+backend+"_"+boost_version+"_"+folder.replace("/",".")
             print(job_name+":")
+            print("  stage: test")
             print("  variables:")
             print("    PIC_TEST_CASE_FOLDER: '" + folder + "'")
             print("    PIC_BACKEND: '" + backend + "'")
